@@ -1,29 +1,39 @@
 import cv2
 
-# Set the desired width, height, and FPS
-width = 20
-height = 20
+#multiple windows
+width = 500
+height = 500
 fps = 30
 
+
+rows = int(input('enter the number of rows.. '))
+columns = int(input('enter the number of columns.. '))
 # Open the default camera
 cam = cv2.VideoCapture(0)
 
-# Set camera properties
+# Set camera properties ..
 cam.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 cam.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 cam.set(cv2.CAP_PROP_FPS, fps)
 cam.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
 
+
+#ask the usr for the rows & columns
+
+
 while True:
-    # Read a frame from the camera
     ret, frame = cam.read()
-    
+    frame = cv2.resize(frame, (int(width/columns), int(height/columns)))
     if not ret:
         print("Error: Could not read frame.")
         break
 
-    # Display the frame
-    cv2.imshow('Camera', frame)
+    for i in range(rows):
+        for j in range(columns):
+            windowName = 'window' + str(i)+str(j)
+            cv2.imshow(windowName,frame)
+            cv2.moveWindow(windowName,int(width/columns)*j, int(height/columns)*i)
+            
     
     # Exit on 'q' key press
     if cv2.waitKey(1) == ord('q'):
