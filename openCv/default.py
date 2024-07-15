@@ -1,8 +1,8 @@
 import cv2
 
 # Set the desired width, height, and FPS
-width = 20
-height = 20
+width = 640
+height = 480
 fps = 30
 
 # Open the default camera

@@ -1,10 +1,17 @@
 import cv2
 
 # Set the desired width, height, and FPS
-width = 20
-height = 20
+width = 640
+height = 480
 fps = 30
 
+def callBack1(val):
+    print(f'xPs {val}')
+    
+    
+def callBack2(val):
+    print(f'yPos {val}')    
+    
 # Open the default camera
 cam = cv2.VideoCapture(0)
 
@@ -13,6 +20,13 @@ cam.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 cam.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 cam.set(cv2.CAP_PROP_FPS, fps)
 cam.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+
+cv2.namedWindow('trackBars')
+cv2.resizeWindow('trackBars', 600, 600)
+cv2.moveWindow('trackBars', width, 0)
+
+cv2.createTrackbar('xPos', 'trackBars', 0, 1920, callBack1)
+cv2.createTrackbar('yPos', 'trackBars', 0, 1920, callBack2)
 
 while True:
     # Read a frame from the camera
